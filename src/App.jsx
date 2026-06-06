@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from "react";
- 
+
 const PLAYERS = ["Igrač 1", "Igrač 2", "Igrač 3"];
 const SUITS = ["♠", "♥", "♦", "♣"];
 const SUIT_COLORS = { "♠": "#ffffff", "♥": "#ff453a", "♦": "#ff453a", "♣": "#ffffff" };
 const ZVANJA_OPTS = [20, 50, 100, 150, 200];
- 
+
 // iOS dark palette
 const C = {
   bg:        "#000000",
@@ -20,7 +20,7 @@ const C = {
   danger:    "#ff453a",
   green:     "#32d74b",
 };
- 
+
 function AnimatedScore({ value }) {
   const prev = useRef(value);
   const [key, setKey] = useState(0);
@@ -29,7 +29,7 @@ function AnimatedScore({ value }) {
   }, [value]);
   return <span key={key} style={{ display: "inline-block", animation: "pop 0.3s cubic-bezier(.36,.07,.19,.97)" }}>{value}</span>;
 }
- 
+
 // iOS-style segmented control
 function SegmentedControl({ options, value, onChange }) {
   return (
@@ -50,7 +50,7 @@ function SegmentedControl({ options, value, onChange }) {
     </div>
   );
 }
- 
+
 // iOS-style list row
 function Row({ label, right, onPress, last }) {
   return (
@@ -65,7 +65,7 @@ function Row({ label, right, onPress, last }) {
     </div>
   );
 }
- 
+
 export default function BellaTracker() {
   const [names, setNames] = useState(PLAYERS.slice());
   const [scores, setScores] = useState([0, 0, 0]);
@@ -78,12 +78,12 @@ export default function BellaTracker() {
   const [editName, setEditName] = useState(-1);
   const [toast, setToast] = useState(null);
   const [autoField, setAutoField] = useState(-1);
- 
+
   function showToast(msg) {
     setToast(msg);
     setTimeout(() => setToast(null), 2200);
   }
- 
+
   function handlePointChange(idx, val) {
     const p = [...round.points];
     p[idx] = val;
@@ -103,7 +103,7 @@ export default function BellaTracker() {
     }
     setRound(r => ({ ...r, points: p }));
   }
- 
+
   function addZvanje(playerIdx, val) {
     setRound(r => ({ ...r, zvanja: r.zvanja.map((arr, i) => i === playerIdx ? [...arr, val] : arr) }));
   }
@@ -111,7 +111,7 @@ export default function BellaTracker() {
     setRound(r => ({ ...r, zvanja: r.zvanja.map((arr, i) => i === playerIdx ? arr.filter((_, k) => k !== j) : arr) }));
   }
   function totalZvanja(i) { return round.zvanja[i].reduce((s, v) => s + v, 0); }
- 
+
   function commitRound() {
     const pts = round.points.map(p => parseInt(p) || 0);
     const sum = pts.reduce((a, b) => a + b, 0);
@@ -137,17 +137,17 @@ export default function BellaTracker() {
     setRound({ adut: "♠", zvacPlayer: (zvacIdx + 1) % 3, points: ["", "", ""], zvanja: [[], [], []] });
     showToast(fell ? `${names[zvacIdx]} je pao! 😬` : "Runda dodana ✓");
   }
- 
+
   function resetGame() {
     if (!window.confirm("Resetirati igru?")) return;
     setScores([0, 0, 0]); setHistory([]); setAutoField(-1);
     setRound({ adut: "♠", zvacPlayer: 0, points: ["", "", ""], zvanja: [[], [], []] });
   }
- 
+
   const leader = scores.indexOf(Math.max(...scores));
   const sf = "-apple-system, 'SF Pro Text', sans-serif";
   const sfDisplay = "-apple-system, 'SF Pro Display', sans-serif";
- 
+
   return (
     <div style={{ minHeight: "100vh", background: C.bg, color: C.label, fontFamily: sf, WebkitFontSmoothing: "antialiased" }}>
       <style>{`
@@ -158,7 +158,7 @@ export default function BellaTracker() {
         button { -webkit-tap-highlight-color: transparent; }
         button:active { opacity: 0.6 !important; }
       `}</style>
- 
+
       {/* iOS nav bar */}
       <div style={{
         background: `${C.bg2}ee`, backdropFilter: "blur(20px)",
@@ -175,7 +175,7 @@ export default function BellaTracker() {
           fontSize: 16, fontWeight: 400, cursor: "pointer", padding: "4px 0",
         }}>Reset</button>
       </div>
- 
+
       {/* Scoreboard */}
       <div style={{ padding: "16px 16px 0", display: "flex", gap: 10 }}>
         {[0, 1, 2].map(i => (
@@ -212,7 +212,7 @@ export default function BellaTracker() {
           </div>
         ))}
       </div>
- 
+
       {/* Tab bar */}
       <div style={{ padding: "14px 16px 0" }}>
         <SegmentedControl
@@ -220,11 +220,11 @@ export default function BellaTracker() {
           value={tab} onChange={setTab}
         />
       </div>
- 
+
       {/* ── TAB: IGRA ── */}
       {tab === "igra" && (
         <div style={{ padding: "20px 16px 100px" }}>
- 
+
           {/* Adut */}
           <div style={{ fontSize: 12, color: C.label2, textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: 6, paddingLeft: 4 }}>Adut</div>
           <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
@@ -237,7 +237,7 @@ export default function BellaTracker() {
               }}>{s}</button>
             ))}
           </div>
- 
+
           {/* Tko je zvao */}
           <div style={{ fontSize: 12, color: C.label2, textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: 6, paddingLeft: 4 }}>Tko je zvao</div>
           <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
@@ -251,7 +251,7 @@ export default function BellaTracker() {
               }}>{names[i]}</button>
             ))}
           </div>
- 
+
           {/* Bodovi */}
           <div style={{ fontSize: 12, color: C.label2, textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: 6, paddingLeft: 4 }}>
             Bodovi · unesi 2, treći se računa sam
@@ -259,11 +259,11 @@ export default function BellaTracker() {
           <div style={{ background: C.bg2, borderRadius: 12, overflow: "hidden", marginBottom: 20, border: `1px solid ${C.sep}` }}>
             {[0, 1, 2].map(i => (
               <div key={i} style={{
-                display: "flex", alignItems: "center", justifyContent: "space-between",
+                display: "flex", alignItems: "center",
                 borderBottom: i < 2 ? `1px solid ${C.sep}` : "none",
                 padding: "0 16px",
               }}>
-                <div style={{ fontSize: 16, color: C.label, flex: 1 }}>{names[i]}</div>
+                <div style={{ fontSize: 16, color: C.label, flex: 1, minWidth: 0 }}>{names[i]}</div>
                 <input
                   type="text" inputMode="numeric" pattern="[0-9]*"
                   placeholder="—"
@@ -282,7 +282,7 @@ export default function BellaTracker() {
           <div style={{ textAlign: "right", fontSize: 13, color: round.points.reduce((s, p) => s + (parseInt(p) || 0), 0) === 162 ? C.green : C.label2, marginTop: -14, marginBottom: 20, paddingRight: 4 }}>
             {round.points.reduce((s, p) => s + (parseInt(p) || 0), 0)} / 162
           </div>
- 
+
           {/* Zvanja */}
           <div style={{ fontSize: 12, color: C.label2, textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: 6, paddingLeft: 4 }}>Zvanja</div>
           <div style={{ background: C.bg2, borderRadius: 12, overflow: "hidden", marginBottom: 20, border: `1px solid ${C.sep}` }}>
@@ -320,7 +320,7 @@ export default function BellaTracker() {
               </div>
             ))}
           </div>
- 
+
           {/* Potvrdi */}
           <button onClick={commitRound} style={{
             width: "100%", background: C.white, color: C.bg,
@@ -332,7 +332,7 @@ export default function BellaTracker() {
           </button>
         </div>
       )}
- 
+
       {/* ── TAB: POVIJEST ── */}
       {tab === "povijest" && (
         <div style={{ padding: "20px 16px 100px" }}>
@@ -373,7 +373,7 @@ export default function BellaTracker() {
           )}
         </div>
       )}
- 
+
       {/* ── TAB: PRAVILA ── */}
       {tab === "pravila" && (
         <div style={{ padding: "20px 16px 100px" }}>
@@ -397,7 +397,7 @@ export default function BellaTracker() {
           ))}
         </div>
       )}
- 
+
       {/* Toast */}
       {toast && (
         <div style={{
@@ -411,5 +411,3 @@ export default function BellaTracker() {
     </div>
   );
 }
- 
-
