@@ -263,14 +263,14 @@ export default function BellaTracker() {
                 borderBottom: i < 2 ? `1px solid ${C.sep}` : "none",
                 padding: "0 16px",
               }}>
-                <div style={{ fontSize: 16, color: C.label, width: 80, flexShrink: 0, paddingRight: 12 }}>{names[i]}</div>
+                <div style={{ fontSize: 16, color: C.label, flex: 1 }}>{names[i]}</div>
                 <input
                   type="text" inputMode="numeric" pattern="[0-9]*"
                   placeholder="—"
                   value={round.points[i]}
                   onChange={e => handlePointChange(i, e.target.value.replace(/[^0-9]/g, ""))}
                   style={{
-                    flex: 1, background: "none", border: "none", outline: "none",
+                    width: 72, flexShrink: 0, background: "none", border: "none", outline: "none",
                     color: i === autoField ? C.label2 : C.white,
                     fontSize: 22, fontWeight: 600, fontFamily: sfDisplay,
                     padding: "14px 0", textAlign: "right",
