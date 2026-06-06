@@ -259,7 +259,7 @@ export default function BellaTracker() {
           <div style={{ background: C.bg2, borderRadius: 12, overflow: "hidden", marginBottom: 20, border: `1px solid ${C.sep}` }}>
             {[0, 1, 2].map(i => (
               <div key={i} style={{
-                display: "flex", alignItems: "center",
+                display: "flex", alignItems: "center", justifyContent: "space-between",
                 borderBottom: i < 2 ? `1px solid ${C.sep}` : "none",
                 padding: "0 16px",
               }}>
@@ -270,7 +270,7 @@ export default function BellaTracker() {
                   value={round.points[i]}
                   onChange={e => handlePointChange(i, e.target.value.replace(/[^0-9]/g, ""))}
                   style={{
-                    width: 60, flexShrink: 0, background: "none", border: "none", outline: "none",
+                    width: 72, flexShrink: 0, background: "none", border: "none", outline: "none",
                     color: i === autoField ? C.label2 : C.white,
                     fontSize: 22, fontWeight: 600, fontFamily: sfDisplay,
                     padding: "14px 0", textAlign: "right",
