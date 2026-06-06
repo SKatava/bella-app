@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 
 const PLAYERS = ["Igrač 1", "Igrač 2", "Igrač 3"];
-const SUITS = ["♠", "♥", "♦", "♣"];
-const SUIT_COLORS = { "♠": "#ffffff", "♥": "#ff453a", "♦": "#ff453a", "♣": "#ffffff" };
+const SUITS = ["žir", "srce", "buča", "zelje"];
+const SUIT_COLORS = { "žir": "#ffffff", "srce": "#ffffff", "buča": "#ffffff", "zelje": "#ffffff" };
 const ZVANJA_OPTS = [20, 50, 100, 150, 200];
 
 // iOS dark palette
@@ -71,7 +71,7 @@ export default function BellaTracker() {
   const [scores, setScores] = useState([0, 0, 0]);
   const [history, setHistory] = useState([]);
   const [round, setRound] = useState({
-    adut: "♠", zvacPlayer: 0,
+    adut: "žir", zvacPlayer: 0,
     points: ["", "", ""], zvanja: [[], [], []],
   });
   const [tab, setTab] = useState("igra");
