@@ -270,7 +270,7 @@ export default function BellaTracker() {
                   value={round.points[i]}
                   onChange={e => handlePointChange(i, e.target.value.replace(/[^0-9]/g, ""))}
                   style={{
-                    width: 72, flexShrink: 0, background: "none", border: "none", outline: "none",
+                    width: 60, flexShrink: 0, background: "none", border: "none", outline: "none",
                     color: i === autoField ? C.label2 : C.white,
                     fontSize: 22, fontWeight: 600, fontFamily: sfDisplay,
                     padding: "14px 0", textAlign: "right",
